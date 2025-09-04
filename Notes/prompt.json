@@ -1,0 +1,106 @@
+{
+  "projectName": "Earthquake Visualizer",
+  "description": "An interactive web application that visualizes recent earthquake activity across the world using real-time data from the USGS Earthquake API. Built for geography students like Casey to explore seismic patterns visually.",
+  "userPersona": {
+    "name": "Casey",
+    "occupation": "Geography Student",
+    "goal": "Understand global seismic activity by visualizing recent earthquakes on a map.",
+    "needs": [
+      "Easily view real-time earthquake data",
+      "Filter earthquakes based on magnitude",
+      "Analyze seismic trends geographically"
+    ]
+  },
+  "techStack": {
+    "frontendFramework": "React",
+    "styling": ["Tailwind CSS", "Material UI"],
+    "mappingLibrary": "react-leaflet (Leaflet)",
+    "dataSource": "USGS Earthquake API (https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.geojson)",
+    "stateManagement": "React useState/useEffect (no external library)",
+    "hosting": "Any static host (Netlify, Vercel, etc.)"
+  },
+  "coreFeatures": [
+    {
+      "name": "Interactive Map with Earthquake Markers",
+      "description": "Map displaying global earthquake locations with color-coded markers by magnitude."
+    },
+    {
+      "name": "Earthquake Details Popup",
+      "description": "Each marker opens a popup showing magnitude, location, depth, and time."
+    },
+    {
+      "name": "Live Data Fetching",
+      "description": "Fetches latest earthquake data from USGS and refreshes periodically."
+    },
+    {
+      "name": "Magnitude Filter",
+      "description": "Material UI slider to filter earthquakes by magnitude range."
+    },
+    {
+      "name": "List View of Earthquakes",
+      "description": "Sidebar or drawer showing a list of recent earthquakes. Clicking zooms to map marker."
+    },
+    {
+      "name": "Map Marker Styling",
+      "description": "Markers sized and colored based on magnitude severity (green <3, yellow 3-5, red >5)."
+    },
+    {
+      "name": "Map Legend",
+      "description": "Floating legend explaining marker colors and magnitude severity."
+    },
+    {
+      "name": "Responsive Design",
+      "description": "Fully responsive for mobile, tablet, and desktop using Tailwind CSS and Material UI Grid."
+    },
+    {
+      "name": "Loading and Error States",
+      "description": "Material UI CircularProgress for loading and Snackbar for API errors."
+    },
+    {
+      "name": "Dark Mode Support",
+      "description": "Toggle to switch between light and dark themes using Material UI theming."
+    }
+  ],
+  "optionalFeatures": [
+    {
+      "name": "Date Range Selector",
+      "description": "Filter earthquakes by past day, week, or month (using alternate USGS endpoints)."
+    },
+    {
+      "name": "Search by Location",
+      "description": "Search a city or region and center the map on it using geocoding."
+    },
+    {
+      "name": "Clustered Markers",
+      "description": "Group nearby earthquakes into clusters to reduce marker clutter."
+    },
+    {
+      "name": "Seismic Heatmap",
+      "description": "Overlay a heatmap showing areas with high recent earthquake intensity."
+    },
+    {
+      "name": "Download Data as CSV",
+      "description": "Export visible earthquake data to CSV for analysis."
+    }
+  ],
+  "uiLayout": {
+    "appBar": {
+      "elements": ["App Title", "Dark Mode Toggle", "Magnitude Filter Slider"]
+    },
+    "mainLayout": {
+      "leftPanel": "Earthquake List (sortable, clickable)",
+      "rightPanel": "Interactive Leaflet Map with Earthquake Markers and Legend"
+    },
+    "mobileUX": {
+      "drawer": "Collapsible list view accessible from a button",
+      "bottomControls": ["Filter", "Refresh", "Dark Mode"]
+    }
+  },
+  "accessibility": {
+    "keyboardNavigation": true,
+    "screenReaderSupport": true,
+    "contrastRatios": "WCAG AA compliant using Material UI defaults"
+  },
+  "refreshRate": "Every 5 minutes",
+  "notes": "User authentication is not required. The focus is on providing a clean, educational, and interactive earthquake data visualization tool for students."
+}
