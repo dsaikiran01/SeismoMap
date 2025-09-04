@@ -107,6 +107,6 @@ It is designed for geography students like **Casey** to explore seismic patterns
 
 SeismoMap is a static React app and can be hosted on:
 
-* [Vercel](https://vercel.com)
+* [Vercel](https://seismo-map.vercel.app/)
 
 
