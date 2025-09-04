@@ -17,6 +17,7 @@ import {
   Box,
   Drawer,
   CircularProgress,
+  Slider
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import Brightness4Icon from "@mui/icons-material/Brightness4";
@@ -39,6 +40,10 @@ function App() {
   const [earthquakes, setEarthquakes] = useState([]);
   const [lastUpdated, setLastUpdated] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [filteredQuakes, setFilteredQuakes] = useState([]);
+
+  const [minMag, setMinMag] = useState(0);
+  const [maxMag, setMaxMag] = useState(10);
 
   const toggleDrawer = () => setDrawerOpen(!drawerOpen);
   const toggleTheme = () => setDarkMode(!darkMode);
@@ -87,6 +92,17 @@ function App() {
       "></div>`,
     });
 
+  // filter quakes according to selected magnitude
+  useEffect(() => {
+    if (earthquakes.length === 0) return;
+
+    const filtered = earthquakes.filter(
+      (eq) =>
+        eq.properties.mag >= minMag && eq.properties.mag <= maxMag
+    );
+    setFilteredQuakes(filtered);
+  }, [minMag, maxMag, earthquakes]);
+
   return (
     <Box
       className={darkMode ? "dark bg-gray-900 text-white" : ""}
@@ -106,6 +122,44 @@ function App() {
           <Typography variant="h6" sx={{ flexGrow: 1 }}>
             SeismoMap
           </Typography>
+
+          <Box sx={{ width: 200, mx: 2 }}>
+            <Slider
+              value={[minMag, maxMag]}
+              onChange={(e, newVal) => {
+                setMinMag(newVal[0]);
+                setMaxMag(newVal[1]);
+                console.log("New values: ", newVal[0] + " " + newVal[1]);
+              }}
+              valueLabelDisplay="auto"
+              min={0}
+              max={10}
+              step={0.1}
+              sx={{
+                color: "white",
+                "& .MuiSlider-thumb": {
+                  backgroundColor: "white",
+                },
+                "& .MuiSlider-track": {
+                  backgroundColor: "white",
+                },
+                "& .MuiSlider-rail": {
+                  backgroundColor: "rgba(255, 255, 255, 0.3)",
+                },
+                "& .MuiSlider-valueLabel": {
+                  color: "black", // the label text
+                  backgroundColor: "white", // the label background
+                },
+              }}
+            />
+
+            {/* Values displayed below the slider */}
+            <Box mt={2} display="flex" justifyContent="space-between">
+              <Typography variant="body2">Min: {minMag}</Typography>
+              <Typography variant="body2">Max: {maxMag}</Typography>
+            </Box>
+          </Box>
+
           {lastUpdated && (
             <Typography variant="body2" sx={{ mr: 2 }}>
               Last Updated: {lastUpdated.toLocaleTimeString()}
@@ -133,7 +187,7 @@ function App() {
             <CircularProgress />
           ) : (
             <Box sx={{ overflowY: "auto", maxHeight: "90vh" }}>
-              {earthquakes.map((eq) => (
+              {filteredQuakes.map((eq) => (
                 <Box
                   key={eq.id}
                   sx={{
@@ -185,7 +239,7 @@ function App() {
                 noWrap={true}
               />
 
-              {earthquakes.map((eq) => {
+              {filteredQuakes.map((eq) => {
                 const [lon, lat, depth] = eq.geometry.coordinates;
                 const { mag, place, time, url } = eq.properties;
                 return (
